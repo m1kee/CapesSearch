@@ -1,0 +1,17 @@
+C:\dev\CapesSearchCore\Capes.Domain\bin\Release\netcoreapp3.0\Capes.Domain.deps.json
+C:\dev\CapesSearchCore\Capes.Domain\bin\Release\netcoreapp3.0\Capes.Domain.dll
+C:\dev\CapesSearchCore\Capes.Domain\bin\Release\netcoreapp3.0\Capes.Domain.pdb
+C:\dev\CapesSearchCore\Capes.Domain\obj\Release\netcoreapp3.0\Capes.Domain.csprojAssemblyReference.cache
+C:\dev\CapesSearchCore\Capes.Domain\obj\Release\netcoreapp3.0\Capes.Domain.AssemblyInfoInputs.cache
+C:\dev\CapesSearchCore\Capes.Domain\obj\Release\netcoreapp3.0\Capes.Domain.AssemblyInfo.cs
+C:\dev\CapesSearchCore\Capes.Domain\obj\Release\netcoreapp3.0\Capes.Domain.dll
+C:\dev\CapesSearchCore\Capes.Domain\obj\Release\netcoreapp3.0\Capes.Domain.pdb
+D:\dev\CapesSearch\Capes.Domain\bin\Release\netcoreapp3.0\Capes.Domain.deps.json
+D:\dev\CapesSearch\Capes.Domain\bin\Release\netcoreapp3.0\Capes.Domain.dll
+D:\dev\CapesSearch\Capes.Domain\bin\Release\netcoreapp3.0\Capes.Domain.pdb
+D:\dev\CapesSearch\Capes.Domain\obj\Release\netcoreapp3.0\Capes.Domain.csprojAssemblyReference.cache
+D:\dev\CapesSearch\Capes.Domain\obj\Release\netcoreapp3.0\Capes.Domain.AssemblyInfoInputs.cache
+D:\dev\CapesSearch\Capes.Domain\obj\Release\netcoreapp3.0\Capes.Domain.AssemblyInfo.cs
+D:\dev\CapesSearch\Capes.Domain\obj\Release\netcoreapp3.0\Capes.Domain.csproj.CoreCompileInputs.cache
+D:\dev\CapesSearch\Capes.Domain\obj\Release\netcoreapp3.0\Capes.Domain.dll
+D:\dev\CapesSearch\Capes.Domain\obj\Release\netcoreapp3.0\Capes.Domain.pdb

@@ -1,0 +1,51 @@
+.form-control:focus {
+  box-shadow: none;
+}
+
+.form-control-underlined {
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-radius: 0;
+  padding-left: 0;
+}
+
+.form-control::placeholder {
+  font-size: 0.910rem;
+  color: #aaa;
+  font-style: italic;
+}
+
+.rounded-left-th {
+  -moz-border-radius-topleft: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  -webkit-border-top-left-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+}
+
+.rounded-right-th {
+  -moz-border-radius-topright: 2px;
+  -moz-border-radius-bottomright: 2px;
+  -webkit-border-top-right-radius: 2px;
+  -webkit-border-bottom-right-radius: 2px;
+}
+
+.beauty-scroll::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.beauty-scroll::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F5F5F5;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.beauty-scroll::-webkit-scrollbar-thumb {
+  background-color: #007BFF;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255, .3)), color-stop(.5, transparent), to(transparent));
+}

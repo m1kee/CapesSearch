@@ -1,0 +1,8 @@
+C:\dev\CapesSearchCore\Capes.Domain\obj\Debug\netcoreapp3.0\Capes.Domain.csprojAssemblyReference.cache
+C:\dev\CapesSearchCore\Capes.Domain\obj\Debug\netcoreapp3.0\Capes.Domain.AssemblyInfoInputs.cache
+C:\dev\CapesSearchCore\Capes.Domain\obj\Debug\netcoreapp3.0\Capes.Domain.AssemblyInfo.cs
+C:\dev\CapesSearchCore\Capes.Domain\bin\Debug\netcoreapp3.0\Capes.Domain.deps.json
+C:\dev\CapesSearchCore\Capes.Domain\bin\Debug\netcoreapp3.0\Capes.Domain.dll
+C:\dev\CapesSearchCore\Capes.Domain\bin\Debug\netcoreapp3.0\Capes.Domain.pdb
+C:\dev\CapesSearchCore\Capes.Domain\obj\Debug\netcoreapp3.0\Capes.Domain.dll
+C:\dev\CapesSearchCore\Capes.Domain\obj\Debug\netcoreapp3.0\Capes.Domain.pdb

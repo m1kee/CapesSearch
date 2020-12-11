@@ -1,0 +1,304 @@
+<div class="container-fluid mb-5">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <img src="assets/capes-logo.png" class="centered" />
+    </div>
+    <div id="filters" class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-6">
+      <div class="row">
+        <div id="search-div" class="col-12">
+          <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+            <div class="input-group">
+              <input type="search" name="filter"
+                     (keydown)="trySearch($event)"
+                     [(ngModel)]="filters.text"
+                     placeholder="What are you looking for?"
+                     aria-describedby="button-addon-search"
+                     class="form-control border-0 bg-light">
+              <div class="input-group-append">
+                <button id="button-addon-search" type="submit" (click)="search()" class="btn btn-link text-primary">
+                  <fa-icon [icon]="icons.faSearch" [fixedWidth]="true"></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="book-result" class="col-12 ml-3 mr-3 mt-2 mb-2" *ngIf="filterResult && filterResult.books != null">
+      <div class="card border-primary">
+        <h5 class="card-header bg-primary text-white clickable" (click)="collapse.book = !collapse.book">
+          Books <span class="badge badge-pill badge-light">{{ filterResult.books.length }}</span>
+          <fa-icon *ngIf="!collapse.book" [icon]="icons.faChevronDown" [fixedWidth]="true" class="float-right"></fa-icon>
+          <fa-icon *ngIf="collapse.book" [icon]="icons.faChevronLeft" [fixedWidth]="true" class="float-right"></fa-icon>
+        </h5>
+        <div class="card-body" *ngIf="!collapse.book">
+          <div>
+            <div id="book-pagination" class="m-2">
+              <div class="row">
+                <div class="col-4">
+                  <span class="text-left">
+                    <strong class="text-primary">Total:</strong> {{ filterResult.books.length }} {{ filterResult.books.length === 1 ? 'book' : 'books' }}.
+                  </span>
+                </div>
+                <div class="col-8">
+                  <pagination-controls id="books-paginator"
+                                       (pageChange)="bookPageChanged($event)"
+                                       previousLabel="Previous"
+                                       nextLabel="Next"
+                                       autoHide="true"
+                                       responsive="true"
+                                       class="text-right">
+                  </pagination-controls>
+                </div>
+              </div>
+            </div>
+            <div id="books" class="table-responsive beauty-scroll">
+              <table class="table table-hover table-sm w-100 mb-0">
+                <thead class="bg-primary text-white table-borderless">
+                  <tr>
+                    <th title="Work Type" scope="col" class="border-bottom-0 rounded-left-th"> <small class="font-weight-bold">Type</small></th>
+                    <th title="Book Authors" scope="col" class="border-bottom-0"><small class="font-weight-bold">B. Authors</small></th>
+                    <th title="Chapter Authors" scope="col" class="border-bottom-0"><small class="font-weight-bold">C. Authors</small></th>
+                    <th title="Editors" scope="col" class="border-bottom-0"><small class="font-weight-bold">Editors</small></th>
+                    <th title="Book Title" scope="col" class="border-bottom-0"><small class="font-weight-bold">B. Title</small></th>
+                    <th title="Chapter Title" scope="col" class="border-bottom-0"><small class="font-weight-bold">C. Title</small></th>
+                    <th title="First Page" scope="col" class="border-bottom-0"><small class="font-weight-bold">First</small></th>
+                    <th title="Last Page" scope="col" class="border-bottom-0"><small class="font-weight-bold">Last</small></th>
+                    <th title="Editorial" scope="col" class="border-bottom-0"><small class="font-weight-bold">Editorial</small></th>
+                    <th title="City" scope="col" class="border-bottom-0"><small class="font-weight-bold">City</small></th>
+                    <th title="Country" scope="col" class="border-bottom-0"><small class="font-weight-bold">Country</small></th>
+                    <th title="Year" scope="col" class="border-bottom-0"><small class="font-weight-bold">Year</small></th>
+                    <th title="ISBN" scope="col" class="border-bottom-0"><small class="font-weight-bold">ISBN</small></th>
+                    <th title="Report" scope="col" class="border-bottom-0 rounded-right-th"><small class="font-weight-bold">Report</small></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let book of filterResult.books | paginate: bookConfig">
+                    <td><small>{{ book.workType }}</small></td>
+                    <td><small>{{ book.bookAuthors }}</small></td>
+                    <td><small>{{ book.chapAuthors }}</small></td>
+                    <td><small>{{ book.editors }}</small></td>
+                    <td><small>{{ book.bookTitle }}</small></td>
+                    <td><small>{{ book.chapTitle }}</small></td>
+                    <td><small>{{ book.firstPage }}</small></td>
+                    <td><small>{{ book.lastPage }}</small></td>
+                    <td><small>{{ book.editorial }}</small></td>
+                    <td><small>{{ book.city }}</small></td>
+                    <td><small>{{ book.country }}</small></td>
+                    <td><small>{{ book.year }}</small></td>
+                    <td><small>{{ book.isbn }}</small></td>
+                    <td><small>{{ book.report }}</small></td>
+                  </tr>
+                  <tr *ngIf="filterResult.books.length == 0">
+                    <td colspan="17" class="text-center">
+                      <small class="font-italic"> No coincidences </small>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="award-result" class="col-12 ml-3 mr-3 mt-2 mb-2" *ngIf="filterResult && filterResult.awards != null">
+      <div class="card border-primary">
+        <h5 class="card-header bg-primary text-white clickable" (click)="collapse.award = !collapse.award">
+          Awards <span class="badge badge-pill badge-light">{{ filterResult.awards.length }}</span>
+          <fa-icon *ngIf="!collapse.award" [icon]="icons.faChevronDown" [fixedWidth]="true" class="float-right"></fa-icon>
+          <fa-icon *ngIf="collapse.award" [icon]="icons.faChevronLeft" [fixedWidth]="true" class="float-right"></fa-icon>
+        </h5>
+        <div class="card-body" *ngIf="!collapse.award">
+          <div>
+            <div id="award-pagination" class="m-2">
+              <div class="row">
+                <div class="col-4">
+                  <span class="text-left">
+                    <strong class="text-primary">Total:</strong> {{ filterResult.awards.length }} {{ filterResult.awards.length === 1 ? 'award' : 'awards' }}.
+                  </span>
+                </div>
+                <div class="col-8">
+                  <pagination-controls id="awards-paginator"
+                                       (pageChange)="awardPageChanged($event)"
+                                       previousLabel="Previous"
+                                       nextLabel="Next"
+                                       autoHide="true"
+                                       responsive="true"
+                                       class="text-right">
+                  </pagination-controls>
+                </div>
+              </div>
+            </div>
+            <div id="awards" class="table-responsive beauty-scroll">
+              <table class="table table-hover table-sm w-100 mb-0">
+                <thead class="bg-primary text-white table-borderless">
+                  <tr>
+                    <th title="Name" scope="col" class="border-bottom-0 rounded-left-th"><small class="font-weight-bold"> Name </small></th>
+                    <th title="Awardee" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Awardee </small></th>
+                    <th title="Contribution" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Contribution </small></th>
+                    <th title="Institution" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Institution </small></th>
+                    <th title="Country" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Country </small></th>
+                    <th title="Year" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Year </small></th>
+                    <th title="Report" scope="col" class="border-bottom-0 rounded-right-th"><small class="font-weight-bold"> Report </small></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let award of filterResult.awards | paginate: awardConfig">
+                    <td><small>{{ award.name }} </small></td>
+                    <td><small>{{ award.awardee }} </small></td>
+                    <td><small>{{ award.contribution }} </small></td>
+                    <td><small>{{ award.institution }} </small></td>
+                    <td><small>{{ award.country }} </small></td>
+                    <td><small>{{ award.year }} </small></td>
+                    <td><small>{{ award.report }} </small></td>
+                  </tr>
+                  <tr *ngIf="filterResult.awards.length == 0">
+                    <td colspan="17" class="text-center">
+                      <small class="font-italic"> No coincidences </small>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="participation-result" class="col-12 ml-3 mr-3 mt-2 mb-2" *ngIf="filterResult && filterResult.participations != null">
+      <div class="card border-primary">
+        <h5 class="card-header bg-primary text-white clickable" (click)="collapse.participation = !collapse.participation">
+          Participations <span class="badge badge-pill badge-light">{{ filterResult.participations.length }}</span>
+          <fa-icon *ngIf="!collapse.participation" [icon]="icons.faChevronDown" [fixedWidth]="true" class="float-right"></fa-icon>
+          <fa-icon *ngIf="collapse.participation" [icon]="icons.faChevronLeft" [fixedWidth]="true" class="float-right"></fa-icon>
+        </h5>
+        <div class="card-body" *ngIf="!collapse.participation">
+          <div>
+            <div id="participation-pagination" class="m-2">
+              <div class="row">
+                <div class="col-4">
+                  <span class="text-left">
+                    <strong class="text-primary">Total:</strong> {{ filterResult.participations.length }} {{ filterResult.participations.length === 1 ? 'participation' : 'participations' }}.
+                  </span>
+                </div>
+                <div class="col-8">
+                  <pagination-controls id="participations-paginator"
+                                       (pageChange)="participationPageChanged($event)"
+                                       previousLabel="Previous"
+                                       nextLabel="Next"
+                                       autoHide="true"
+                                       responsive="true"
+                                       class="text-right">
+                  </pagination-controls>
+                </div>
+              </div>
+            </div>
+            <div id="participations" class="table-responsive beauty-scroll">
+              <table class="table table-hover table-sm w-100 mb-0">
+                <thead class="bg-primary text-white table-borderless">
+                  <tr>
+                    <th title="Type" scope="col" class="border-bottom-0 rounded-left-th"><small class="font-weight-bold"> Type </small></th>
+                    <th title="Name Event" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Event Name </small></th>
+                    <th title="Country" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Country </small></th>
+                    <th title="City" scope="col" class="border-bottom-0"><small class="font-weight-bold"> City </small></th>
+                    <th title="Modality" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Modality </small></th>
+                    <th title="Title" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Title </small></th>
+                    <th title="Capes Persons" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Capes Persons </small></th>
+                    <th title="Report" scope="col" class="border-bottom-0 rounded-right-th"><small class="font-weight-bold"> Report </small></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let participation of filterResult.participations | paginate: participationConfig">
+                    <td><small>{{ participation.type }} </small></td>
+                    <td><small>{{ participation.nameEvent }} </small></td>
+                    <td><small>{{ participation.country }} </small></td>
+                    <td><small>{{ participation.city }} </small></td>
+                    <td><small>{{ participation.modality }} </small></td>
+                    <td><small>{{ participation.title }} </small></td>
+                    <td><small>{{ participation.capesPersons }} </small></td>
+                    <td><small>{{ participation.report }} </small></td>
+                  </tr>
+                  <tr *ngIf="filterResult.participations.length == 0">
+                    <td colspan="17" class="text-center">
+                      <small class="font-italic"> No coincidences </small>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="publication-result" class="col-12 ml-3 mr-3 mt-2 mb-2" *ngIf="filterResult && filterResult.publications != null">
+      <div class="card border-primary">
+        <h5 class="card-header  bg-primary text-white clickable" (click)="collapse.publication = !collapse.publication">
+          Publications <span class="badge badge-pill badge-light">{{ filterResult.publications.length }}</span>
+          <fa-icon *ngIf="!collapse.publication" [icon]="icons.faChevronDown" [fixedWidth]="true" class="float-right"></fa-icon>
+          <fa-icon *ngIf="collapse.publication" [icon]="icons.faChevronLeft" [fixedWidth]="true" class="float-right"></fa-icon>
+        </h5>
+        <div class="card-body" *ngIf="!collapse.publication">
+          <div>
+            <div id="publication-pagination" class="m-2">
+              <div class="row">
+                <div class="col-4">
+                  <span class="text-left">
+                    <strong class="text-primary">Total:</strong> {{ filterResult.publications.length }} {{ filterResult.publications.length === 1 ? 'publication' : 'publications' }}.
+                  </span>
+                </div>
+                <div class="col-8">
+                  <pagination-controls id="publications-paginator"
+                                       (pageChange)="publicationPageChanged($event)"
+                                       previousLabel="Previous"
+                                       nextLabel="Next"
+                                       autoHide="true"
+                                       responsive="true"
+                                       class="text-right">
+                  </pagination-controls>
+                </div>
+              </div>
+            </div>
+            <div id="publications" class="table-responsive beauty-scroll">
+              <table class="table table-hover table-sm w-100 mb-0">
+                <thead class="bg-primary text-white table-borderless">
+                  <tr>
+                    <th title="Doi" scope="col" class="border-bottom-0 rounded-left-th"><small class="font-weight-bold"> DOI </small></th>
+                    <th title="Authors" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Authors </small></th>
+                    <th title="ArticleTitle" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Article Title </small></th>
+                    <th title="JournalName" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Journal Name </small></th>
+                    <th title="Volume" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Volume </small></th>
+                    <th title="Year" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Year </small></th>
+                    <th title="FirstPage" scope="col" class="border-bottom-0"><small class="font-weight-bold"> First </small></th>
+                    <th title="LastPage" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Last </small></th>
+                    <th title="Notes" scope="col" class="border-bottom-0"><small class="font-weight-bold"> Notes </small></th>
+                    <th title="Report" scope="col" class="border-bottom-0 rounded-right-th"><small class="font-weight-bold"> Report </small></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let publication of filterResult.publications | paginate: publicationConfig">
+                    <td><small>{{ publication.doi }} </small></td>
+                    <td><small>{{ publication.authors }} </small></td>
+                    <td><small>{{ publication.articleTitle }} </small></td>
+                    <td><small>{{ publication.journalName }} </small></td>
+                    <td><small>{{ publication.volume }} </small></td>
+                    <td><small>{{ publication.year }} </small></td>
+                    <td><small>{{ publication.firstPage }} </small></td>
+                    <td><small>{{ publication.lastPage }} </small></td>
+                    <td><small>{{ publication.notes }} </small></td>
+                    <td><small>{{ publication.report }} </small></td>
+                  </tr>
+                  <tr *ngIf="filterResult.publications.length == 0">
+                    <td colspan="17" class="text-center">
+                      <small class="font-italic"> No coincidences </small>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
